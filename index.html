@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 | Món Quà Kỷ Niệm Yêu Thương</title>
+  <meta name="description" content="Trang thiệp chúc mừng và album kỷ niệm 20/10 dành tặng những người phụ nữ tuyệt vời nhất.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@500;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Canvas hiệu ứng cánh hoa hồng & bụi sao lấp lánh -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Nút điều khiển âm nhạc góc màn hình -->
+  <div class="music-controller" id="music-controller" title="Bật/Tắt nhạc nền">
+    <div class="music-disc" id="music-disc">
+      <div class="disc-core"></div>
+      <svg class="music-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+    </div>
+    <span class="music-label" id="music-status-text">Bật nhạc</span>
+  </div>
+
+  <!-- Nút cài đặt tùy biến nhanh (Thay tên & lời chúc) -->
+  <button class="settings-btn" id="open-settings-btn" title="Chỉnh sửa thiệp & người nhận">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+    </svg>
+    <span>Tùy biến thiệp</span>
+  </button>
+
+  <!-- Nút đóa hoa hồng nổi tặng hoa nhanh trên màn hình -->
+  <div class="floating-rose-trigger" id="floating-rose-trigger" title="Chạm vào bông hoa để nở cả màn hình hoa hồng!">
+    <div class="rose-bloom-glow"></div>
+    <img src="assets/images/rose1_trans.png" alt="Đóa hoa hồng" class="rose-icon-img">
+    <span class="floating-rose-label">Tặng Hoa 🌹</span>
+  </div>
+
+  <!-- ================= GIAI ĐOẠN 1: MÀN HÌNH MỞ PHONG THƯ (HERO ENVELOPE) ================= -->
+  <section class="scene-envelope" id="scene-envelope">
+    <div class="envelope-intro">
+      <div class="badge-date">20 · 10 · 2026</div>
+      <h1 class="intro-title">Món Quà Dành Tặng Người Phụ Nữ Tôi Yêu</h1>
+      <p class="intro-subtitle">Chạm vào con dấu sáp trái tim để mở bức thư bất ngờ nhé!</p>
+    </div>
+
+    <div class="envelope-wrapper" id="envelope-wrapper">
+      <div class="envelope-shadow"></div>
+      <div class="envelope">
+        <!-- Nắp trên của phong bì -->
+        <div class="envelope-flap-top" id="envelope-flap"></div>
+        
+        <!-- Lá thư trượt bên trong phong bì -->
+        <div class="envelope-letter-preview" id="letter-preview">
+          <div class="letter-preview-content">
+            <span class="preview-heart">💖</span>
+            <p class="preview-text">Gửi người phụ nữ tuyệt vời nhất...</p>
+          </div>
+        </div>
+
+        <!-- Cánh phong bì trái, phải, đáy -->
+        <div class="envelope-pocket"></div>
+
+        <!-- Con dấu sáp trái tim niêm phong -->
+        <div class="wax-seal" id="wax-seal" title="Chạm vào để mở thư">
+          <div class="wax-inner">
+            <svg class="seal-heart" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span class="seal-label">MỞ THƯ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="open-instruction">
+      <span class="pulse-icon">👆</span>
+      <span>Chạm vào trái tim sáp để mở món quà</span>
+    </div>
+  </section>
+
+  <!-- ================= GIAI ĐOẠN 2: THIỆP CHÚC MỪNG 3D & NỘI DUNG ================= -->
+  <section class="scene-card hidden" id="scene-card">
+    <div class="container">
+      <div class="card-3d-wrapper">
+        <div class="card-header-decor">
+          <div class="floral-branch left">🌸</div>
+          <span class="card-tag">HAPPY VIETNAMESE WOMEN'S DAY</span>
+          <div class="floral-branch right">🌸</div>
+        </div>
+
+        <div class="greeting-card" id="greeting-card">
+          <div class="card-glow-layer"></div>
+          
+          <div class="card-inner">
+            <!-- Trái tim đang đập thay thế icon tem thư -->
+            <div class="beating-heart-wrapper" id="beating-heart-trigger" title="Nhịp tim yêu thương (Chạm để thả tim)">
+              <div class="beating-heart-icon">
+                <svg viewBox="0 0 24 24" class="heart-pulse-svg">
+                  <defs>
+                    <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ff3366" />
+                      <stop offset="50%" stop-color="#e11d48" />
+                      <stop offset="100%" stop-color="#9f1239" />
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#heartGrad)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="salutation-box">
+              <span class="salutation-label">Thân gửi:</span>
+              <h2 class="recipient-name" id="display-recipient">Ánh Hoài</h2>
+            </div>
+
+            <div class="letter-body">
+              <p class="typewriter-text" id="typewriter-message"></p>
+              <span class="typewriter-cursor" id="typewriter-cursor">|</span>
+            </div>
+
+            <div class="letter-footer">
+              <div class="wishes-quote">
+                "Cảm ơn vì nụ cười rạng rỡ và sự dịu dàng của bạn đã luôn làm cho thế giới này ngập tràn ánh nắng."
+              </div>
+              <div class="signature-box">
+                <span class="signature-date">Ngày 20 tháng 10</span>
+                <span class="signature-name" id="display-sender">Từ người luôn trân quý bạn</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= KHU VỰC VƯỜN HOA NỞ RỘ (TỪ 1 BÔNG HOA DUY NHẤT) ================= -->
+        <div class="garden-stage" id="garden-stage">
+          <canvas id="garden-canvas" aria-hidden="true"></canvas>
+          
+          <div class="garden-intro" id="garden-intro">
+            <h2 class="garden-title">Từ một bông hoa nhỏ…</h2>
+            <p class="garden-hint" id="garden-hint">Chạm vào hoa, một điều dịu dàng đang chờ bạn.</p>
+          </div>
+
+          <!-- Nút chạm vào bông hoa trung tâm để kích hoạt vườn hoa vươn lên từ dưới màn hình -->
+          <button class="garden-flower-hitbox" id="garden-flower-btn" type="button" aria-label="Chạm để hoa nở lại"></button>
+
+          <p class="garden-status" id="garden-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Thanh điều hướng chuyển sang Khu kỷ niệm ảnh -->
+        <div class="scroll-down-action">
+          <button class="nav-to-gallery-btn" id="scroll-to-gallery-btn">
+            <span>Khám phá Kho Báu Kỷ Niệm</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GIAI ĐOẠN 3: ALBUM ẢNH ĐỘNG KỶ NIỆM (DYNAMIC MEMORY GALLERY) ================= -->
+  <section class="scene-gallery hidden" id="scene-gallery">
+    <div class="container">
+      <div class="gallery-header">
+        <span class="section-subtitle">Khoảnh Khắc Đẹp Nhất</span>
+        <h2 class="section-title">Góc Kỷ Niệm Lung Linh</h2>
+        <p class="section-desc">Những khoảnh khắc lưu giữ nụ cười và nét đẹp bất tận theo năm tháng. Ảnh thêm vào sẽ tự động mang những thông điệp yêu thương!</p>
+        
+        <!-- Nút thao tác thêm ảnh trực tiếp -->
+        <div class="gallery-actions">
+          <label for="image-upload-input" class="action-btn upload-btn" title="Chọn ảnh từ máy tính hoặc điện thoại">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>+ Thêm ảnh của bạn</span>
+          </label>
+          <input type="file" id="image-upload-input" accept="image/*" multiple style="display: none;">
+          
+          <button class="action-btn effect-btn" id="toggle-float-mode-btn" title="Bật/Tắt hiệu ứng ảnh trôi bồng bềnh">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <span>Chế độ trôi bồng bềnh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Lưới Album ảnh dạng Polaroid 3D Tilted -->
+      <div class="polaroid-grid" id="polaroid-grid">
+        <!-- Render tự động bởi JS: Không còn khung rỗng, thông điệp tự động ấm áp -->
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SÂN KHẤU HOA HỒNG BÙNG NỔ CẢ MÀN HÌNH ================= -->
+  <div class="fullscreen-rose-stage" id="fullscreen-rose-stage">
+    <div class="stage-backdrop"></div>
+    <div class="rose-overlay-flowers" id="rose-overlay-flowers"></div>
+    
+    <div class="stage-content">
+      <div class="stage-banner">
+        <span class="banner-sub">20 · 10 · 2026</span>
+        <h2 id="rose-stage-title">Vạn Đóa Hồng Dành Tặng Người Phụ Nữ Tuyệt Vời Nhất! 🌸</h2>
+        <p class="stage-wish-text" id="rose-stage-wish">🌹 Trao tặng bạn vạn đóa hồng thắm ngát hương!</p>
+      </div>
+
+      <div class="stage-controls">
+        <button class="stage-btn more-roses" id="more-roses-btn">
+          <span>Tặng Thêm 99 Đóa Hoa 🌹</span>
+        </button>
+        <button class="stage-btn close-stage" id="close-rose-stage-btn">
+          <span>Ngắm tiếp &times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL XEM ẢNH CHI TIẾT (LIGHTBOX) ================= -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close-btn" id="lightbox-close">&times;</button>
+      <div class="lightbox-image-wrap">
+        <img id="lightbox-img" src="" alt="Ảnh kỷ niệm">
+      </div>
+      <div class="lightbox-details">
+        <h4 id="lightbox-caption">Tiêu đề ảnh</h4>
+        <p id="lightbox-date">20/10/2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL TÙY BIẾN THIỆP & NỘI DUNG ================= -->
+  <div class="settings-modal" id="settings-modal">
+    <div class="modal-backdrop" id="settings-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Tùy biến lời chúc & người nhận</h3>
+        <button class="modal-close" id="settings-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-recipient">Người nhận (Tên/Cách xưng hô):</label>
+          <input type="text" id="input-recipient" placeholder="Ví dụ: Mẹ yêu, Em yêu, Chị Lan, Người con gái tôi thương...">
+        </div>
+        <div class="form-group">
+          <label for="input-sender">Người gửi:</label>
+          <input type="text" id="input-sender" placeholder="Ví dụ: Người luôn yêu thương bạn, Con trai, ...">
+        </div>
+        <div class="form-group">
+          <label for="input-message">Nội dung bức thư chúc mừng:</label>
+          <textarea id="input-message" rows="5" placeholder="Nhập lời chúc chân thành của bạn tại đây..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="settings-reset">Mặc định</button>
+        <button class="btn btn-primary" id="settings-save">Lưu & Cập nhật thiệp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden YouTube Audio Player for "Young and Beautiful" -->
+  <div id="youtube-player-container" style="position:fixed;bottom:-999px;left:-999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+    <div id="youtube-player"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/petals.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/hearts.js"></script>
+  <script src="js/garden-botany.js"></script>
+  <script src="js/garden.js"></script>
+  <script src="js/roses.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
